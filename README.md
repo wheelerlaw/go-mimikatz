@@ -25,3 +25,10 @@ make
 cat mimi32.exe >> mimikatz.exe
 
 6. deploy the mimikatz.exe 
+
+
+### Donations:
+Bitcoin: 3GrtoFKp7UAf2eqTeUnN8eM3V7RS3n25Ae
+Ether: 0x66DB9aCAEB85A08e34c04B4F290dE840E93dd08A
+
+
