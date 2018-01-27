@@ -1,12 +1,13 @@
-ifneq ("$(shell which i686-w64-mingw32-gcc)","")
-compiler = i686-w64-mingw32-gcc
+ifneq ("$(shell which x86_64-w64-mingw32-gcc)","")
+compiler = x86_64-w64-mingw32-gcc
 else
-compiler = i586-mingw32msvc-gcc
+compiler = amd64-mingw32msvc-gcc
 endif
+arch = amd64
 
 # Build the dependencies first (subdirs), then move onto the meat and potatoes.
 mimikatz.exe: MemoryModule mimikatz.go
-	CC=$(compiler) CGO_ENABLED=1 GOOS=windows GOARCH=386 go build -x mimikatz.go
+	CC=$(compiler) CGO_ENABLED=1 GOOS=windows GOARCH=$(arch) go build -x mimikatz.go
 
 # Dependency build. 
 SUBDIRS = MemoryModule
