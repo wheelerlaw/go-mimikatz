@@ -5,7 +5,7 @@ compiler = i586-mingw32msvc-gcc
 endif
 
 # Build the dependencies first (subdirs), then move onto the meat and potatoes.
-mimikats.exe: MemoryModule mimikatz.go
+mimikatz.exe: MemoryModule mimikatz.go
 	CC=$(compiler) CGO_ENABLED=1 GOOS=windows GOARCH=386 go build -x mimikatz.go
 
 # Dependency build. 
@@ -17,8 +17,6 @@ $(SUBDIRS):
 MemoryModule:
 	[ "`ls -A MemoryModule`" ] || git submodule update --init
 	$(MAKE) -C $@
-	# cmake -HMemoryModule -BMemoryModule/build
-	# cmake --build MemoryModule/build --target MemoryModule
 
 
 # Packing the binary

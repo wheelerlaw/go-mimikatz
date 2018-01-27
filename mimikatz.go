@@ -15,7 +15,7 @@ import (
 )
 
 const KEY string = "changethiskey"
-const SIZE int = 1994830
+const SIZE int = 1996666
 
 func end(msg string) {
 	fmt.Println(msg)

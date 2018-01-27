@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/binary"
 	"flag"
 	"fmt"
 	"io/ioutil"
@@ -36,12 +37,12 @@ func main() {
 		case 0:
 			data, err = ioutil.ReadAll(os.Stdin)
 			check(err)
-			fmt.Printf("%v", string(data))
+			binary.Write(os.Stdout, binary.LittleEndian, crypt(data))
 			break
 		case 1:
 			data, err = ioutil.ReadFile(flag.Arg(0))
 			check(err)
-			ioutil.WriteFile(flag.Arg(0) + "-encrypted", crypt(data), 0644)
+			ioutil.WriteFile(flag.Arg(0) + ".encr", crypt(data), 0644)
 			break
 		default:
 			fmt.Printf("input must be from stdin or file\n")
