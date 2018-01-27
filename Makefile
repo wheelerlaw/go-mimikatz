@@ -5,7 +5,7 @@ compiler = i586-mingw32msvc-gcc
 endif
 
 # Build the dependencies first (subdirs), then move onto the meat and potatoes.
-all: subdirs
+all: MemoryModule
 	CC=$(compiler) CGO_ENABLED=1 GOOS=windows GOARCH=386 go build mimikatz.go
 	go build crypt.go
 
@@ -14,6 +14,9 @@ SUBDIRS = MemoryModule
 subdirs: $(SUBDIRS)
 $(SUBDIRS):
 	$(MAKE) -C $@
+MemoryModule:
+	cmake -HMemoryModule -BMemoryModule/build
+	cmake --build MemoryModule/build --target MemoryModule
 
 # Clean targed. 
 CLEANDIRS = $(SUBDIRS:%=clean-%)
