@@ -19,7 +19,23 @@ func crypt(stage2 []byte) []byte {
 }
 
 func main() {
-	fname := os.Args[1]
-	bin, _ := ioutil.ReadFile(fname)
-	ioutil.WriteFile(fname, crypt(bin), 0644)
+	flag.Parse()
+	var data []byte
+	var err error
+	switch flag.NArg() {
+		case 0:
+			data, err = ioutil.ReadAll(os.Stdin)
+			check(err)
+			fmt.Printf("stdin data: %v\n", string(data))
+			break
+		case 1:
+			data, err = ioutil.ReadFile(flag.Arg(0))
+			check(err)
+			fmt.Printf("file data: %v\n", string(data))
+			break
+		default:
+			fmt.Printf("input must be from stdin or file\n")
+			os.Exit(1)
+	}
+	// ioutil.WriteFile(fname, crypt(data), 0644)
 }
