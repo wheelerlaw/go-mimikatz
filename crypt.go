@@ -36,16 +36,15 @@ func main() {
 		case 0:
 			data, err = ioutil.ReadAll(os.Stdin)
 			check(err)
-			fmt.Printf("stdin data: %v\n", string(data))
+			fmt.Printf("%v", string(data))
 			break
 		case 1:
 			data, err = ioutil.ReadFile(flag.Arg(0))
 			check(err)
-			fmt.Printf("file data: %v\n", string(data))
+			ioutil.WriteFile(flag.Arg(0) + "-encrypted", crypt(data), 0644)
 			break
 		default:
 			fmt.Printf("input must be from stdin or file\n")
 			os.Exit(1)
 	}
-	// ioutil.WriteFile(fname, crypt(data), 0644)
 }
