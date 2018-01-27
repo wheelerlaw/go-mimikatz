@@ -1,6 +1,8 @@
 package main
 
 import (
+	"flag"
+	"fmt"
 	"io/ioutil"
 	"os"
 )
@@ -17,6 +19,14 @@ func crypt(stage2 []byte) []byte {
 
 	return stage2
 }
+
+func check(e error) {
+	if e != nil {
+		panic(e)
+	}
+}
+
+
 
 func main() {
 	flag.Parse()

@@ -5,7 +5,7 @@ compiler = i586-mingw32msvc-gcc
 endif
 
 # Build the dependencies first (subdirs), then move onto the meat and potatoes.
-unpacker: MemoryModule
+mimikats.exe: MemoryModule mimikatz.go
 	CC=$(compiler) CGO_ENABLED=1 GOOS=windows GOARCH=386 go build -x mimikatz.go
 
 # Dependency build. 
@@ -25,7 +25,7 @@ MemoryModule:
 pack: crypt download
 	./cryp
 
-crypt:
+crypt: crypt.go
 	go build crypt.go
 
 download:
