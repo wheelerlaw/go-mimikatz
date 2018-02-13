@@ -31,9 +31,9 @@ all: pack
 
 # Build the dependencies first (subdirs), then move onto the meat and potatoes.
 mimikatz.exe: MemoryModule mimikatz.go
-	CC=$(compiler) CGO_ENABLED=1 GOOS=windows GOARCH=$(arch) go build -x mimikatz.go
+	CGO_LDFLAGS_ALLOW=".*\.a" CC=$(compiler) CGO_ENABLED=1 GOOS=windows GOARCH=$(arch) go build -x mimikatz.go
 	sed -i "s/^\\(const SIZE int = \\).*\$$/\\1`du -bs mimikatz.exe | sed 's/[[:blank:]].*//'`/g" mimikatz.go
-	CC=$(compiler) CGO_ENABLED=1 GOOS=windows GOARCH=$(arch) go build -x mimikatz.go
+	CGO_LDFLAGS_ALLOW=".*\.a" CC=$(compiler) CGO_ENABLED=1 GOOS=windows GOARCH=$(arch) go build -x mimikatz.go
 
 
 # Dependency build. 
