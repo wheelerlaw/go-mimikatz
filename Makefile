@@ -1,9 +1,24 @@
 ifneq ("$(shell which x86_64-w64-mingw32-gcc)","")
 compiler = x86_64-w64-mingw32-gcc
-else
+else ifneq ("$(shell which amd64-mingw32msvc-gcc)","")
 compiler = amd64-mingw32msvc-gcc
+else
+ignored = $(error No compatible compiler found on system path)
 endif
 arch = amd64
+
+ifeq ("$(shell which go)", "")
+$(error Go not found on system path)
+endif
+
+ifeq ("$(shell which 7z)", "")
+$(error 7z not found on system path)
+endif
+
+ifeq ("$(shell which curl)", "")
+$(error Curl not found on system path)
+endif
+
 
 all: pack
 
@@ -39,6 +54,9 @@ crypt: crypt.go
 download:
 	curl -OL https://github.com/gentilkiwi/mimikatz/releases/download/2.1.1-20171220/mimikatz_trunk.7z
 
+	# Test whether or not we actually got a 7z.
+	7z e -so mimikatz_trunk.7z x64/mimikatz.exe >> /dev/null
+
 
 # Clean target. 
 CLEANDIRS = $(SUBDIRS:%=clean-%)
@@ -50,4 +68,5 @@ $(CLEANDIRS):
 test:
 	$(MAKE) -C tests test
 
-.PHONY: subdirs $(INSTALLDIRS) $(SUBDIRS) clean test encrypt download
+.PHONY: subdirs $(INSTALLDIRS) $(SUBDIRS) clean test encrypt download check_deps
+
