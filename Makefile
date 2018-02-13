@@ -23,6 +23,10 @@ ifeq ("$(shell which jq)", "")
 $(error jq not found on system path)
 endif
 
+ifeq ("$(shell which cmake)", "")
+$(error cmake not found on system path)
+endif
+
 all: pack
 
 # Build the dependencies first (subdirs), then move onto the meat and potatoes.
@@ -40,8 +44,9 @@ $(SUBDIRS):
 # Override default subdir build behavior (make) with cmake. 
 MemoryModule:
 	[ "`ls -A MemoryModule`" ] || git submodule update --init
-	$(MAKE) -C $@
-
+#	$(MAKE) -C $@
+	cmake -HMemoryModule -BMemoryModule/build
+	cmake --build MemoryModule/build --target MemoryModule
 
 # Packing it inside of the loader
 pack: encrypt mimikatz.exe
@@ -70,8 +75,11 @@ clean: $(CLEANDIRS)
 	rm -f crypt mimikatz.exe mimikatz_trunk.7z mimi_encrypted
 $(CLEANDIRS): 
 	$(MAKE) -C $(@:clean-%=%) clean
+clean-MemoryModule:
+	$(MAKE) -C $(@:clean-%=%) clean
+	rm -rf MemoryModule/build
 
 test:
 	$(MAKE) -C tests test
 
-.PHONY: subdirs $(INSTALLDIRS) $(SUBDIRS) clean test encrypt download check_deps
+.PHONY: subdirs $(INSTALLDIRS) $(SUBDIRS) $(CLEANDIRS) clean test encrypt download check_deps
