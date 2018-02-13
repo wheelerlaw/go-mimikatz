@@ -8,7 +8,7 @@ endif
 arch = amd64
 
 ifeq ("$(shell which go)", "")
-$(error Go not found on system path)
+$(error go not found on system path)
 endif
 
 ifeq ("$(shell which 7z)", "")
@@ -16,9 +16,12 @@ $(error 7z not found on system path)
 endif
 
 ifeq ("$(shell which curl)", "")
-$(error Curl not found on system path)
+$(error curl not found on system path)
 endif
 
+ifeq ("$(shell which jq)", "")
+$(error jq not found on system path)
+endif
 
 all: pack
 
@@ -52,7 +55,9 @@ crypt: crypt.go
 	go build crypt.go
 
 download:
-	curl -OL https://github.com/gentilkiwi/mimikatz/releases/download/2.1.1-20171220/mimikatz_trunk.7z
+	curl -s "https://api.github.com/repos/gentilkiwi/mimikatz/releases/latest" \
+       | jq -r '.assets[] | select(.name=="mimikatz_trunk.7z") | .browser_download_url' \
+       | xargs curl -OL
 
 	# Test whether or not we actually got a 7z.
 	7z e -so mimikatz_trunk.7z x64/mimikatz.exe >> /dev/null
