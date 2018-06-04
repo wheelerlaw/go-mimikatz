@@ -16,7 +16,7 @@ addons:
       - python3
       - jq
       - git
-      - 7z
+      - p7zip
 install:
   - sudo pip3 install yq
 script:
