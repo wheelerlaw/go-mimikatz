@@ -11,8 +11,8 @@ if [ "$TRAVIS_EVENT_TYPE" = "cron" ]; then
     upstream_version=$(echo $upstream_download_link | sed 's|.*\/download\/\([^\/]*\)\/.*|\1|')
     echo "Upstream version: $upstream_version"
     if [ "$upstream_version" != "$version" ]; then
-        git clone "https://wheelerlaw:$GITHUB_TOKEN@github.com/wheelerlaw/firefoxdev.git"
-        cd firefoxdev
+        git clone "https://wheelerlaw:$GITHUB_TOKEN@github.com/wheelerlaw/go-mimikatz.git
+        cd go-mimikatz
         git config user.name "Wheeler Law"
         git config user.email "whelderwheels613@gmail.com"
         cat Makefile | sed "s|^mimikatz_version = .*\$|mimikatz_version = $upstream_version|" | tee Makefile | grep $upstream_version
