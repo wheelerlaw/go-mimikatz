@@ -17,10 +17,12 @@ if [ "$TRAVIS_EVENT_TYPE" = "cron" ]; then
         git config user.name "Wheeler Law"
         git config user.email "whelderwheels613@gmail.com"
         cat Makefile | sed "s|^mimikatz_version = .*\$|mimikatz_version = $upstream_version|" | tee Makefile | grep $upstream_version
+        new_key=$(base64 /dev/urandom | head -c 100 | tr -d '\n' | tr -dc A-Za-z0-9)
+        cat crypt.go | sed "s|^const KEY string = \".*\"$|const KEY string = \"$new_key\"|" | tee crypt.go | grep 'const KEY string'
         git add -A
         git commit -m "Auto update to $upstream_version"
         git tag -a -m "Auto update to $upstream_version" $upstream_version
-        # git push --follow-tags
+        git push --follow-tags
     fi
     exit
 else
