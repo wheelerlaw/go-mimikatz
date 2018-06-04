@@ -43,10 +43,6 @@ crypt: crypt.go
 	go build crypt.go
 
 download:
-	# curl -fssL "https://api.github.com/repos/gentilkiwi/mimikatz/releases/latest" \
-    #    | jq -r '.assets[] | select(.name=="mimikatz_trunk.7z") | .browser_download_url' \
-    #    | xargs curl -OL
-
 	curl -OL https://github.com/gentilkiwi/mimikatz/releases/download/$(mimikatz_version)/mimikatz_trunk.7z
 
 	# Test whether or not we actually got a 7z.
