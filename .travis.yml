@@ -1,6 +1,6 @@
 language: generic
 sudo: false
-dist: xenial
+dist: trusty
 branches:
   only:
   - master
