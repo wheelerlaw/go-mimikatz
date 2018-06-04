@@ -4,26 +4,25 @@ dist: trusty
 branches:
   only:
   - master
-  # Assume that the version numbers begin with a number and that most feature branches won't
-  - /^[0-9].*?-[0-9]{8}$/
+  - "/^[0-9].*?-[0-9]{8}$/"
 addons:
   apt:
     packages:
-      - mingw-w64
-      - curl
-      - gettext
-      - jq
-      - git
-      - p7zip-full
+    - mingw-w64
+    - curl
+    - gettext
+    - jq
+    - git
+    - p7zip-full
 script:
-  - make
+- make
 deploy:
   provider: releases
   file: mk.exe
   skip_cleanup: true
-  api_key: $GITHUB_TOKEN
+  api_key: "$GITHUB_TOKEN"
   verbose: true
   on:
     tags: true
 env:
-  secure: Jq0V/VI9bhZl4uaMLjqZDtpyBSOAS8BVjCDfrGJQyV5rBN2OVXb6wtF3vCgivly5ZRy+dTtmlL1HWNBqYVUg6uAzfO4USSViQgBlFZ+dkXWDuWRYoVhqH8oaFoFXTJcTA1/e6PLGngK6mvwXjtaMceVSy7iDVO5OA4Wmhqa0S/P6Ti0QK41UtkRypyDFR+yBFe9F3FCh+fa0bC+7KA6xfuO9fG/jPzMDi93HAVXQFdiHL86frGQ9qcMXbJ98VV33/FzgDbhbZZnxSWVfQfhe0f6ZrfD9UrEdCPH23F61dwjcFbez4vLR0Ire0ytBuIBUzVXucN6wVmPACbVeUoMFLXxuLAy7SHKaefSnUUT4zfz/FBm2TAWIOOTy/qL84dFuY+vD0Own+LX+0EBrUMITBovjohY0Pm1h5PWT9LoHeZF2CQ3bbQjEt4Jf/LHFUQrY0m6L2dj/cyJT/O6hsUXlglT0F0SuPyaceW9leURyPh7jRMY3k/ihQzjY8WGvGqU1URXlCQZPwXtuT+PLixm5FZmtjrhcDm5zXkGI0NCxlYJ2wK5eQx7ZGLImtS+rW7sETPtg3FfQ43nvXSFTT3gcgPQhCJmFNJFFspwDaNHkPyepe8/QMaZ4X8WF61B/S1Hq02Van0zEo1rYODExPR/N8TnaNlSB2b0EKu8Yr3wkwFI=
+  secure: rf/dxT+p/o6TbXmgRcZ4VnDaIO2rWSVxWQkm5Tw9pnSkwKUcd2zh9y+aOSzV/1M6WVa8bxk5Uexe1386X9idW1XrOkyueRtJfgorK5azTh1/j2FFkhgym7vw/cM3YJNEhWrpP/eb5jeESG19hXOkCcaez9b92IeUtxNQ3hcUnXFefptYTHKRQopImdzTBe3xfBwIH9Cx+deiSy0LnqMdnAQ+lh8vGIWqb4AiP5rUII/J9JwmyOhwNAIovuO3zI5cy0jAlIOrviKVaNviILcHVv5STIwlAbZfiQV1+VFWaChkm+SvvCy8WXQytdP2oC5M0CP0ZtbL+ZWUnCd7BH7PfORnKZYYvJEIjEKlwy05Y4wO7w+4fjYAaxEvUhyyr5WQvf4Uvf66Si5GKRr+fBHOaLjAQvwf41wieq1PnrgnvZlqW57H25e3zsy9utQXCNqxj2MU/hrP0sHzfC8c60umaAFx7rr5De5wuA2JpdGbOOPs/rHK8VBxE/JRnztmJ5HlPRZ2cpYIe2Z7Q3C5wbA1aLKcFVTOMNZWeV2KtuGUATpjKKcoWrpcJ3F6+zyllulB6V+Lgz7h9hkxUtWuIOQpPckY5qrdyfOvnnTeBrk5/daYZIFfnS7dzQ5K4scdbLwvJe2NTAlqU56Z3v8P2YNDzE5r9t038W7ILMtHNXiFZYE=
