@@ -12,13 +12,9 @@ addons:
       - mingw-w64
       - curl
       - gettext
-      - python3-pip
-      - python3
       - jq
       - git
       - p7zip-full
-install:
-  - sudo pip3 install yq
 script:
   - make
 deploy:

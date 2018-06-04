@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -ex
 
 #### If we're running in a cron job, check the upstream version against the repo version. If a newer version is available, then update to that
 #### version, and tag a new commit. Travis will pick up the tagged commit and build the deb and deploy it. 
@@ -11,7 +12,7 @@ if [ "$TRAVIS_EVENT_TYPE" = "cron" ]; then
     upstream_version=$(echo $upstream_download_link | sed 's|.*\/download\/\([^\/]*\)\/.*|\1|')
     echo "Upstream version: $upstream_version"
     if [ "$upstream_version" != "$version" ]; then
-        git clone "https://wheelerlaw:$GITHUB_TOKEN@github.com/wheelerlaw/go-mimikatz.git"
+        git clone "https://wheelerlaw:$GITHUB_TOKEN@github.com/wheelerlaw/go-mimikatz.git" -b build-system
         cd go-mimikatz
         git config user.name "Wheeler Law"
         git config user.email "whelderwheels613@gmail.com"
@@ -19,7 +20,7 @@ if [ "$TRAVIS_EVENT_TYPE" = "cron" ]; then
         git add -A
         git commit -m "Auto update to $upstream_version"
         git tag -a -m "Auto update to $upstream_version" $upstream_version
-        git push --follow-tags
+        # git push --follow-tags
     fi
     exit
 else
