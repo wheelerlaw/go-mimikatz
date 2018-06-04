@@ -15,7 +15,7 @@ addons:
       - git
       - p7zip-full
 script:
-  - make
+  - ./build
 deploy:
   provider: releases
   file: mk.exe
