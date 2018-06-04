@@ -3,19 +3,19 @@ sudo: false
 dist: trusty
 branches:
   only:
-  - master
-  - "/^[0-9].*?-[0-9]{8}$/"
+    - master
+    - "/^[0-9].*?-[0-9]{8}$/"
 addons:
   apt:
     packages:
-    - mingw-w64
-    - curl
-    - gettext
-    - jq
-    - git
-    - p7zip-full
+      - mingw-w64
+      - curl
+      - gettext
+      - jq
+      - git
+      - p7zip-full
 script:
-- make
+  - make
 deploy:
   provider: releases
   file: mk.exe

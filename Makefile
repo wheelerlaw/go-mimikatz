@@ -52,7 +52,8 @@ download:
 # Clean target. 
 CLEANDIRS = $(SUBDIRS:%=clean-%)
 clean: $(CLEANDIRS)
-	rm -f crypt mimikatz.exe mimikatz_trunk.7z mimi_encrypted mk.exe
+	rm -f crypt mimikatz.exe mimikatz_trunk.7z mimi_encrypted mk.exe 
+	rm -rf go-mimikatz
 $(CLEANDIRS): 
 	$(MAKE) -C $(@:clean-%=%) clean
 clean-MemoryModule:
