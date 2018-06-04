@@ -29,8 +29,8 @@ function cron() {
         # If we make it here, the build must have succeeded (set -e).
         git add -A
         git commit -m "Auto update to $upstream_version"
-        # git tag -a -m "Auto update to $upstream_version" $upstream_version
-        # git push --follow-tags
+        git tag -a -m "Auto update to $upstream_version" $upstream_version
+        git push --follow-tags
     fi
     exit
 }
