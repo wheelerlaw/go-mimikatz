@@ -3,19 +3,19 @@ sudo: false
 dist: trusty
 branches:
   only:
-    - master
-    - "/^[0-9].*?-[0-9]{8}$/"
+  - master
+  - "/^[0-9].*?-[0-9]{8}$/"
 addons:
   apt:
     packages:
-      - mingw-w64
-      - curl
-      - gettext
-      - jq
-      - git
-      - p7zip-full
+    - mingw-w64
+    - curl
+    - gettext
+    - jq
+    - git
+    - p7zip-full
 script:
-  - ./build
+- "./build"
 deploy:
   provider: releases
   file: mk.exe
@@ -25,4 +25,4 @@ deploy:
   on:
     tags: true
 env:
-  secure: rf/dxT+p/o6TbXmgRcZ4VnDaIO2rWSVxWQkm5Tw9pnSkwKUcd2zh9y+aOSzV/1M6WVa8bxk5Uexe1386X9idW1XrOkyueRtJfgorK5azTh1/j2FFkhgym7vw/cM3YJNEhWrpP/eb5jeESG19hXOkCcaez9b92IeUtxNQ3hcUnXFefptYTHKRQopImdzTBe3xfBwIH9Cx+deiSy0LnqMdnAQ+lh8vGIWqb4AiP5rUII/J9JwmyOhwNAIovuO3zI5cy0jAlIOrviKVaNviILcHVv5STIwlAbZfiQV1+VFWaChkm+SvvCy8WXQytdP2oC5M0CP0ZtbL+ZWUnCd7BH7PfORnKZYYvJEIjEKlwy05Y4wO7w+4fjYAaxEvUhyyr5WQvf4Uvf66Si5GKRr+fBHOaLjAQvwf41wieq1PnrgnvZlqW57H25e3zsy9utQXCNqxj2MU/hrP0sHzfC8c60umaAFx7rr5De5wuA2JpdGbOOPs/rHK8VBxE/JRnztmJ5HlPRZ2cpYIe2Z7Q3C5wbA1aLKcFVTOMNZWeV2KtuGUATpjKKcoWrpcJ3F6+zyllulB6V+Lgz7h9hkxUtWuIOQpPckY5qrdyfOvnnTeBrk5/daYZIFfnS7dzQ5K4scdbLwvJe2NTAlqU56Z3v8P2YNDzE5r9t038W7ILMtHNXiFZYE=
+  secure: KUHamdL2e+nPJIT87JG+XQAAXIHD3cQcooK8NH59PvpiYOyYfA0pvEI++plQYOqWc+hX4orfMppdkrlozqdZcQvbEBzZ/7ot6sW0rE3EqqHwDE2Y1ENQCtR478YwYQLy1MakHWBBKDXJYEJ3LIZhKxMh6sOK+/QUQkPkrMkZaE4rIdImAdiCKzN8VGoDSmsAByFH9Fkw9D+zflnCn0Nfgn/55JwLaWABzEMmlnja0LyYP1ka65NSMzcGhk6gMuBoZc8TRn5NQrJzw/QkNLfpqJFUBSwwiO8VnbPKlL0Rb4FRzRCtL65Va3CHJvUBgz6ZGyUTYzzkTe/SMkl7KFT73Q6S8GcFz3NPVhsPVGUSZ1El+yd+m/a8KMBMYIxHRCpkJOzV7I5nsbjqr9cozjnf5c0KFqBASgC4cQI4GMFp6T2R5qgfHa3rhXvejIYTX821E1WHAl7XOv/LdWGG6GyvA6u7Rfb3q2jm233dbeMFSNA3n5C8clZgAhn+FDT6GC71wAdDLG9AohRfrI2d2T3OCLTbdYFIFCBmjdQq9YeRHQwTOgzmAfnkIH8wIFpP21kfZOm883fRMQz+SCi5YZ3QBlUvp9JbWsgnQ8drgoc4WAYtUebfRT5s5eUsC/EQhWwuymOE4S/DVgCzU5Uawuggkowe8xUBCdv0MYD532n84Ds=
