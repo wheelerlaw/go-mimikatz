@@ -9,12 +9,13 @@ branches:
 addons:
   apt:
     packages:
-    - curl
-    - gettext
-    - python3-pip
-    - python3
-    - jq
-    - git
+      - mingw-w64
+      - curl
+      - gettext
+      - python3-pip
+      - python3
+      - jq
+      - git
 install:
   - sudo pip3 install yq
 script:
