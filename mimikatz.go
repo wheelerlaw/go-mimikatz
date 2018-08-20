@@ -14,8 +14,8 @@ import (
 	"unsafe"
 )
 
-const DECRYPT_KEY string = "D7oGllA1BEGMYSTvVE9MJBpsODq7wWPvriLxHJy8f7iGHqLnVOnEG0vJtmhM64dIs1YWkJcNM0p6Fu5euIVvxko3p8dSwHP"
-const SIZE int = 2406350
+const DECRYPT_KEY string = "Qfcuz8e827iggxJ420j1QqnsziQZd5ehfYpC91kmqcCrug9lXtJMUMSQnbDKwwVpR7mdu4PcDdoOfKG9TTZgFHA8xeBhiTN8"
+const SIZE int = 1604421
 
 func end(msg string) {
 	fmt.Println(msg)
