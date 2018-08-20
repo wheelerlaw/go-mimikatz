@@ -15,7 +15,7 @@ import (
 )
 
 const DECRYPT_KEY string = "Qfcuz8e827iggxJ420j1QqnsziQZd5ehfYpC91kmqcCrug9lXtJMUMSQnbDKwwVpR7mdu4PcDdoOfKG9TTZgFHA8xeBhiTN8"
-const SIZE int = 1604421
+const SIZE int = 2723996
 
 func end(msg string) {
 	fmt.Println(msg)
