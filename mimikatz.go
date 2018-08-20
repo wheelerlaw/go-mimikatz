@@ -14,15 +14,15 @@ import (
 	"unsafe"
 )
 
-const KEY string = "changethiskey"
-const SIZE int = 1604421
+const DECRYPT_KEY string = "Qfcuz8e827iggxJ420j1QqnsziQZd5ehfYpC91kmqcCrug9lXtJMUMSQnbDKwwVpR7mdu4PcDdoOfKG9TTZgFHA8xeBhiTN8"
+const SIZE int = 2723996
 
 func end(msg string) {
 	fmt.Println(msg)
 	os.Exit(1)
 }
 
-func check(err error, msg string) {
+func runCheck(err error, msg string) {
 	if err != nil {
 		end(msg)
 	}
@@ -31,7 +31,7 @@ func check(err error, msg string) {
 func unpack(filename string) []byte {
 	//fmt.Printf("Unpacking %s ...\n", filename)
 	bin, err := ioutil.ReadFile(filename)
-	check(err, "error reading file")
+	runCheck(err, "error reading file")
 	//fmt.Printf("unpacked %d bytes\n", len(bin))
 	stage2 := bin[SIZE:]
 	//fmt.Printf("hidden section size: %d == %d\n", len(bin)-SIZE, len(stage2))
@@ -44,7 +44,7 @@ func unpack(filename string) []byte {
 }
 
 func decrypt(stage2 []byte) []byte {
-	key := []byte(KEY)
+	key := []byte(DECRYPT_KEY)
 	kl := len(key)
 
 	for i := 0; i < len(stage2); i++ {

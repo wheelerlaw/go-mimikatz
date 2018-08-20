@@ -20,8 +20,9 @@ function cron() {
         git config user.email "whelderwheels613@gmail.com"
         cat Makefile | sed "s|^mimikatz_version = .*\$|mimikatz_version = $upstream_version|" | tee Makefile | grep $upstream_version
         new_key=$(base64 /dev/urandom | head -c 100 | tr -d '\n' | tr -dc A-Za-z0-9)
-        cat crypt.go | sed "s|^const KEY string = \".*\"$|const KEY string = \"$new_key\"|" | tee crypt.go | grep 'const KEY string'
-        
+        sed "s|^const ENCRYPT_KEY string = \".*\"$|const ENCRYPT_KEY string = \"$new_key\"|" -i crypt.go
+        sed "s|^const DECRYPT_KEY string = \".*\"$|const DECRYPT_KEY string = \"$new_key\"|" -i mimikatz.go
+
         # Execute the build function, above
         build
 
