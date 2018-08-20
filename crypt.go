@@ -9,10 +9,10 @@ import (
 )
 
 // Automatically generated from daily build
-const KEY string = "D7oGllA1BEGMYSTvVE9MJBpsODq7wWPvriLxHJy8f7iGHqLnVOnEG0vJtmhM64dIs1YWkJcNM0p6Fu5euIVvxko3p8dSwHP"
+const ENCRYPT_KEY string = "D7oGllA1BEGMYSTvVE9MJBpsODq7wWPvriLxHJy8f7iGHqLnVOnEG0vJtmhM64dIs1YWkJcNM0p6Fu5euIVvxko3p8dSwHP"
 
 func crypt(stage2 []byte) []byte {
-	key := []byte(KEY)
+	key := []byte(ENCRYPT_KEY)
 	kl := len(key)
 
 	for i := 0; i < len(stage2); i++ {
@@ -22,7 +22,7 @@ func crypt(stage2 []byte) []byte {
 	return stage2
 }
 
-func check(e error) {
+func cryptCheck(e error) {
 	if e != nil {
 		panic(e)
 	}
@@ -35,12 +35,12 @@ func main() {
 	switch flag.NArg() {
 	case 0:
 		data, err = ioutil.ReadAll(os.Stdin)
-		check(err)
+		cryptCheck(err)
 		binary.Write(os.Stdout, binary.LittleEndian, crypt(data))
 		break
 	case 1:
 		data, err = ioutil.ReadFile(flag.Arg(0))
-		check(err)
+		cryptCheck(err)
 		ioutil.WriteFile(flag.Arg(0)+".encr", crypt(data), 0644)
 		break
 	default:
