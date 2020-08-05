@@ -14,7 +14,7 @@ import (
 	"unsafe"
 )
 
-const DECRYPT_KEY string = "9giMUpQHNhkBiHs9bvt7gnSGV1oxYWF4ehtkmfRYHfDW1nX2e4UaIQgiWOX9M4i19LcVF5vTQ5iCCbrRLCbVRqCfa7GSejCIJ"
+const DECRYPT_KEY string = "QDGTOYdEWrvre9phbzUOfb6k2Mh3Ac49lp0ARGdHfZ3M7DfI49vrwjkb7KuFwy05hdE5pyMEq94ZQPOE9kcwWw4Yam0ISOC7pK"
 const SIZE int = 1604424
 
 func end(msg string) {
