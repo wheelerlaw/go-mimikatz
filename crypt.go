@@ -9,7 +9,7 @@ import (
 )
 
 // Automatically generated from daily build
-const ENCRYPT_KEY string = "17IWYG4RjYkCSLNfsvwe4zDSizi1eHoC6tXUnP3WuddPqu5tuWDwwIMS5RpHbTLIC9ATCbGzZC0szuH732eO851Kw4EocHLHt"
+const ENCRYPT_KEY string = "iv718mJbyvA4WT2Lk1TZJSV6tpVZVdWPUYGsGNtSjXeGtWUw1RhtvkYKWubTRMBPfma33GvRupxWuhP3UxojnNpB5WAWtt0"
 
 func crypt(stage2 []byte) []byte {
 	key := []byte(ENCRYPT_KEY)
