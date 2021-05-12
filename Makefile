@@ -7,7 +7,7 @@ ignored = $(error No compatible compiler found on system path)
 endif
 
 arch = amd64
-mimikatz_version = 2.2.0-20200918-fix
+mimikatz_version = 2.2.0-20210511
 
 all: pack
 
